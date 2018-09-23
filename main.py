@@ -53,9 +53,17 @@ def wallpostcomment(owner_id, post_id, message, attachments=''): # Send comment 
 		access_token = token
 	)
 	return response
+def wallpost(owner_id, message, attachments=''):
+	response = vkapi.wall.post(
+		owner_id = owner_id,
+		message = message,
+		v = v,
+		access_token = token
+	)
+	return response
 
 # Select attack type
-argparser= createparser()
+argparser = createparser()
 argparser.add_argument('--type')
 argparser.add_argument('--count')
 argparser.add_argument('--message')
@@ -78,3 +86,12 @@ if seltype == 'wallcomments':
 			print(wallpostcomment(owner_id, post['id'], message))
 			time.sleep(delay)
 		time.sleep(10)
+if(seltype == 'wallpost'):
+	owner_id = arguments.owner_id
+	int(owner_id)
+	message = arguments.message
+	message = loadcopypaste(message)
+	attachments = arguments.attachments
+	while True:
+		wallpost(owner_id, message, attachments)
+		time.sleep(delay)
