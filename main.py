@@ -3,6 +3,7 @@
 import vk
 import sys
 import time
+import random
 import argparse
 import clipboard
 import configparser
@@ -17,6 +18,8 @@ delay = config.get('Misc', 'delay') # Get delay
 docsdir = config.get('Filesystem', 'docsdir') # Get docsdir
 token = config.get('User', 'accessToken') # Get auth token
 copypastedir = config.get('Filesystem', 'copypastedir') # Get copypastedir
+shitpost_album_owner_id = config.get('Shitpost', 'album_owner_id')
+shitpost_album_id = config.get('Shitpost', 'album_id')
 delay = int(delay)
 
 # Create VK session
@@ -61,12 +64,33 @@ def wallpost(owner_id, message, attachments=''):
 		access_token = token
 	)
 	return response
+def inalbum(owner_id, album_id, count, rev):
+	response = vkapi.photos.get(
+		access_token = token,
+		owner_id = owner_id,
+		album_id = album_id,
+		count = count,
+		rev = rev,
+		v = v
+	)
+	return response['items']
+def genPhotoAttachment(owner_id, photo_id):
+	return 'photo' + str(owner_id) + '_' + str(photo_id)
+def sendToConf(chat_id, message, attachment):
+	return vkapi.messages.send(
+		chat_id = chat_id,
+		message = message,
+		attachment = attachment,
+		v = v,
+		access_token = token
+	)
 
 # Select attack type
 argparser = createparser()
 argparser.add_argument('--type')
 argparser.add_argument('--count')
 argparser.add_argument('--message')
+argparser.add_argument('--chat-id')
 argparser.add_argument('--owner-id')
 argparser.add_argument('--attachments')
 arguments = argparser.parse_args()
@@ -83,7 +107,7 @@ if seltype == 'wallcomments':
 	attachments = arguments.attachments
 	while True:
 		for post in target['items']:
-			print(wallpostcomment(owner_id, post['id'], message))
+			print(wallpostcomment(owner_id, post['id'], message, attachments))
 			time.sleep(delay)
 		time.sleep(10)
 if(seltype == 'wallpost'):
@@ -94,4 +118,13 @@ if(seltype == 'wallpost'):
 	attachments = arguments.attachments
 	while True:
 		wallpost(owner_id, message, attachments)
+		time.sleep(delay)
+if(seltype == 'confshit'):
+	chat_id = arguments.chat_id
+	message = arguments.message
+	album = inalbum(shitpost_album_owner_id, shitpost_album_id, 300, 1)
+	while True:
+		photo = random.choice(album)
+		photo = genPhotoAttachment(photo['owner_id'], photo['id'])
+		print(sendToConf(chat_id, message, photo))
 		time.sleep(delay)
