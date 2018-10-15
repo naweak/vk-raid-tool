@@ -1,3 +1,3 @@
 @echo off
-pip install clipboard vk
+pip install vk
 del install.bat
