@@ -87,7 +87,7 @@ def zlogen(power):
 	return zlo
 def loadcopypaste(name): # Load copypaste
 	if name == 'ZLO':
-		copypaste = zlogen(15)
+		copypaste = zlogen(20)
 	else:
 		copypaste = open(copypastedir + '/' + name, 'r')
 		copypaste = copypaste.read()
@@ -178,11 +178,11 @@ if(seltype == 'wallpost'):
 		time.sleep(delay)
 if(seltype == 'confshit'):
 	chat_id = arguments.chat_id
-	message = arguments.message
-	message = loadcopypaste(message)
+	namemessage = arguments.message
 	album = inalbum(shitpost_album_owner_id, shitpost_album_id, 1000, 1)
 	i = 0
 	while True:
+		message = loadcopypaste(namemessage)
 		photo = random.choice(album)
 		photo = genPhotoAttachment(photo['owner_id'], photo['id'])
 		print('PASS #' + str(i) + '	' + str(sendToConf(chat_id, message, photo)))
