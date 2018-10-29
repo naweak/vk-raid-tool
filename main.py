@@ -159,10 +159,10 @@ if seltype == 'wallcomments':
 	count = arguments.count
 	owner_id = arguments.owner_id
 	target = wallposts(owner_id, count)
-	message = arguments.message
-	message = loadcopypaste(message)
+	namemessage = arguments.message
 	attachments = arguments.attachments
 	while True:
+		message = loadcopypaste(namemessage)
 		for post in target['items']:
 			print(wallpostcomment(owner_id, post['id'], message, attachments))
 			time.sleep(delay)
@@ -170,19 +170,19 @@ if seltype == 'wallcomments':
 if(seltype == 'wallpost'):
 	owner_id = arguments.owner_id
 	int(owner_id)
-	message = arguments.message
-	message = loadcopypaste(message)
+	namemessage = arguments.message
 	attachments = arguments.attachments
 	while True:
+		message = loadcopypaste(namemessage)
 		wallpost(owner_id, message, attachments)
 		time.sleep(delay)
 if(seltype == 'confshit'):
 	chat_id = arguments.chat_id
-	message = arguments.message
-	message = loadcopypaste(message)
+	namemessage = arguments.message
 	album = inalbum(shitpost_album_owner_id, shitpost_album_id, 1000, 1)
 	i = 0
 	while True:
+		message = loadcopypaste(namemessage)
 		photo = random.choice(album)
 		photo = genPhotoAttachment(photo['owner_id'], photo['id'])
 		print('PASS #' + str(i) + '	' + str(sendToConf(chat_id, message, photo)))
