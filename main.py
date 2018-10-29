@@ -20,7 +20,7 @@ token = config.get('User', 'accessToken') # Get auth token
 copypastedir = config.get('Filesystem', 'copypastedir') # Get copypastedir
 shitpost_album_owner_id = config.get('Shitpost', 'album_owner_id')
 shitpost_album_id = config.get('Shitpost', 'album_id')
-delay = int(delay)
+delay = float(delay)
 
 # Create VK session
 vksession = vk.Session()
@@ -31,9 +31,66 @@ def loaddoc (name): # Load documentation
 	doc = open(docsdir + '/' + name, 'r')
 	doc = doc.read()
 	return doc
+def zlogen(power):
+	phrases = [
+		'ЖЫВТОНЕЧОЧОУПЯЧКА1111111',
+		'ОЯЕБУ!!!!!!11!!адинадин',
+		'ОНОТОЛЕ НЕГОДУЕ!111',
+		'ВОЕНЕ УПЧК СТРАШНЕ ОТАКЕ ДДоСЕ!111',
+		'ПОПЯЧТС!11!!!1',
+		'ЪЕЧЧОЖА!!!!11',
+		'ЛуЧИ ПОНОСА!!!1111111',
+		'СВОБОДА РАВЕНСТВО УПЯЧКА!11111!1С.Р.У111111111!!!',
+		'ОН КАГБЕ ГОВОРИ НАМ -',
+		'ОТАКе ВОЕНЕ!111',
+		'ПОТС ЗОХВАЧЕН111',
+		'ЕБАНЕМСЯ НА ОТЛИЧНЕНЬКО!!!111',
+		'ОНОТОЛЕ ПРОКЛИНАЕ УГ!!111',
+		'ЖЕПЬ ЕБРИЛО!!11111111адинадин',
+		'ХУРЬ!!!1',
+		'ЧАКЕ СТРАШНЕ ГНЕВЕ!111адин11',
+		'ДОЛГОПЯТ КАКБЕ ЛЮБИМЕ ЖЫВТОНЕ ОНОТОЛЕ!!!111',
+		'УПЯЧКОЧАТ11!!!!адин1',
+		'МЖВЯЧНИ ПРДУНЬ–ПРДУНЬ1111',
+		'ЪЖЧЛО!адин11111!!!!!',
+		'ЖАЖА11!',
+		'СЛАВА ЛЕОНИДЕ!111',
+		'ГЛАНДЭ ОЯЕБУ ПОПЯЧТС!1111аДИН',
+		'ПыЩЩЩЩЩЩ!!!!!!1111 ПЫЩЩЩЩЩЩ!!111 ПыЩЩЩЩЩЩЩЩЩ!!!!!!1111111СТОАДИНАЦАТЬ',
+		'ОНОТОЛЕ КАКБЕ БЛАГОСЛОВЛЯЕ ДОБЛЕСТНЕ ВОЕНЕ УПЧК!!111адинадин',
+		'СМОТРИ БАЛЕТ СУКА!1111',
+		'УГ НА ГЛАГНЕ!!111',
+		'ЭЕКСТЕЛР ТЫОЙ ЯЕБАНЕЙУ КОТУ111111111',
+		'Я ИДИОТ1УБЕЙТЕ МЕНЯ КТО–НИБУДЬ!',
+		'ОНОТОЛЕ СЕРЧАЕ!!111адинадин',
+		'ЖРИ ПЯНИ СУКА!111',
+		'НЕ ПОТСЬ УГ НА ГЛАГНЕ!!!!1111111АДИН',
+		'СЛАВА ОНОТОЛЕ!111',
+		'Медведев — шмель11111111 ЖЖЖЖЖ1111111!111',
+		'ОНОТОЛЕ КАКБЕ БЛАГОСЛОВЛЯЕ ДОБЛЕСТНЕ ВОЕНЕ УПЧК!!111адинадин',
+		'ЕБАНИСТЫД!!1',
+		'ПЕПЯКОТУТСЯ!11111адин',
+		'ОНОТОЛЕЙ!!!11',
+		'А ТЫ ЗНАЕШЬ В ЧЁМ СОЛЬ, %USERNAME%?!1711',
+		'СКОЛОПЕНДРЕ БОДРЕ И МОГУЧЕ ЖЫВТОНЕ - НАСЕКОМЕ!!11',
+		'ПЫЩЩЩЩЩЩ!!111аДИН',
+		'ТЫ ПРОБОВАЛ ЛИЗАТЬ ОКТАЭДР??777!1',
+		'С.Р.У11!!111',
+		'УПЯЧКА СЛЕДИТ ЗА ТОБОЙадин1!111111!!!',
+		'СИСЬКЕ!111'
+	]
+	i = 0
+	zlo = ''
+	while i < power:
+		i+=1
+		zlo += random.choice(phrases)
+	return zlo
 def loadcopypaste(name): # Load copypaste
-	copypaste = open(copypastedir + '/' + name, 'r')
-	copypaste = copypaste.read()
+	if name == 'ZLO':
+		copypaste = zlogen(15)
+	else:
+		copypaste = open(copypastedir + '/' + name, 'r')
+		copypaste = copypaste.read()
 	return copypaste
 def createparser(): # Create command's arguments parser
 	parser = argparse.ArgumentParser()
@@ -122,9 +179,12 @@ if(seltype == 'wallpost'):
 if(seltype == 'confshit'):
 	chat_id = arguments.chat_id
 	message = arguments.message
-	album = inalbum(shitpost_album_owner_id, shitpost_album_id, 300, 1)
+	message = loadcopypaste(message)
+	album = inalbum(shitpost_album_owner_id, shitpost_album_id, 1000, 1)
+	i = 0
 	while True:
 		photo = random.choice(album)
 		photo = genPhotoAttachment(photo['owner_id'], photo['id'])
-		print(sendToConf(chat_id, message, photo))
+		print('PASS #' + str(i) + '	' + str(sendToConf(chat_id, message, photo)))
+		i += 1
 		time.sleep(delay)
