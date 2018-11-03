@@ -1,7 +1,4 @@
 # vk-raid-tool
-123
-
-**[СКАЧАТЬ БЕЗ РЕГИСТРАЦИИ И СМС МОКРЫЕ-МОКРЫЕ ПИСЕЧКИ!!!](https://github.com/naweak/vk-raid-tool/archive/master.zip)**
 
 ## Установка
 1. [Скачиваем архив](https://github.com/naweak/vk-raid-tool/releases) с последнией версией для своей системы
