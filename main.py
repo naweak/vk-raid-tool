@@ -88,6 +88,8 @@ def zlogen(power):
 def loadcopypaste(name): # Load copypaste
 	if name == 'ZLO':
 		copypaste = zlogen(15)
+	elif name == '' or name == None:
+		copypaste = ''
 	else:
 		copypaste = open(copypastedir + '/' + name, 'r')
 		copypaste = copypaste.read()
