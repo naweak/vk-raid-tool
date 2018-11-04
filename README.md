@@ -31,7 +31,7 @@
 
 ## Компиляция из исходников
 1. Установить Python 3 и pip3 (для Debian и Ubuntu `sudo apt install python3 python3-pip`)
-2. С помощью pip3 поставить пакеты `vk pyinstaller` (`sudo pip install vk pyinstaller` или для Linux ` sudo pip3 install vk pyinstaller`)
+2. С помощью pip3 поставить пакеты `vk pyinstaller` (`pip install vk pyinstaller` или для Linux ` sudo pip3 install vk pyinstaller`)
 3. Перейти в директорию с исходниками
 4. Собрать командой `pyinstaller -F main.py`
 5. Вычистить все, кроме директорий `copypaste`, `dist`, `etc`
