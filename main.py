@@ -5,7 +5,6 @@ import sys
 import time
 import random
 import argparse
-import clipboard
 import configparser
 
 # Parse config
